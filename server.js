@@ -57,23 +57,33 @@ exports.startServer = function () {
 exports.registerApis = function (app) {
   const projectEnv = 'GCLOUD_PROJECT';
   const hubEnv = 'FIREBASE_EMULATOR_HUB';
+  const firestorePort = process.env['FIRESTORE_EMULATOR_PORT'];
   const projectId = process.env[projectEnv];
   const hubHost = process.env[hubEnv];
-  if (!projectId || !hubHost) {
-    throw new Error(
-      `Please specify these environment variables: ${projectEnv} ${hubEnv}\n` +
-        '(Are you using firebase-tools@>=7.14.0 with `--project your-project`?)'
-    );
-  }
+  // if (!projectId || !hubHost) {
+  //   throw new Error(
+  //     `Please specify these environment variables: ${projectEnv} ${hubEnv}\n` +
+  //       '(Are you using firebase-tools@>=7.14.0 with `--project your-project`?)'
+  //   );
+  // }
   // Exposes the host and port of various emulators to facilitate accessing
   // them using client SDKs. For features that involve multiple emulators or
   // hard to accomplish using client SDKs, consider adding an API below.
   app.get(
     '/api/config',
     jsonHandler(async (req) => {
-      const emulatorsRes = await fetch(`http://${hubHost}/emulators`);
-      const emulators = await emulatorsRes.json();
-
+      // const emulatorsRes = await fetch(`http://${hubHost}/emulators`);
+      // const emulators = await emulatorsRes.json();
+      // console.log(emulators);
+      const emulators = {
+        hub: { name: 'hub', host: '127.0.0.1', port: 4401 },
+        firestore: {
+          name: 'firestore',
+          host: '127.0.0.1',
+          port: firestorePort,
+          pid: 22238,
+        },
+      };
       const json = { projectId };
       Object.entries(emulators).forEach(([name, info]) => {
         let host = info.host;
