@@ -65,7 +65,8 @@
     "typescript": "^4.1.5"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start:account": "GCLOUD_PROJECT=sid-6652247777013309449-dev FIRESTORE_EMULATOR_PORT=8081 PORT=3000 react-scripts start",
+    "start:core": "GCLOUD_PROJECT=ep-core-dev FIRESTORE_EMULATOR_PORT=11000 PORT=3001 react-scripts start",
     "build": "npm run build:web && npm run build:server",
     "bundle": "zip -r emulator-ui-dist.zip server.bundle.js build",
     "build:web": "react-scripts build",

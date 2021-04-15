@@ -83,6 +83,18 @@ exports.registerApis = function (app) {
           port: firestorePort,
           pid: 22238,
         },
+        auth: {
+          name: 'auth',
+          host: 'localhost',
+          port: 9099,
+          hostAndPort: 'localhost:9099',
+        },
+        functions: {
+          name: 'functions',
+          host: '127.0.0.1',
+          port: 6000,
+          hostAndPort: '127.0.0.1:6000',
+        },
       };
       const json = { projectId };
       Object.entries(emulators).forEach(([name, info]) => {
